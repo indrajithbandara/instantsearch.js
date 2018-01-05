@@ -59,6 +59,7 @@ export default () => {
             templates: {
               header: 'Searchable brands',
             },
+            autoHideContainer: true,
             searchForFacetValues: {
               placeholder: 'Find other brands...',
               templates: {

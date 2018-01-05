@@ -6,11 +6,12 @@ import injectScript from 'scriptjs';
 import instantsearch from '../../../../index';
 import { wrapWithHits } from '../../utils/wrap-with-hits.js';
 
-const wrapWithHitsAndConfiguration = story =>
+const wrapWithHitsAndConfiguration = (story, searchParameters) =>
   wrapWithHits(story, {
     indexName: 'airbnb',
     searchParameters: {
       hitsPerPage: 50,
+      ...searchParameters,
     },
   });
 
@@ -44,8 +45,10 @@ export default () => {
   // With IP
   Stories.add(
     'with IP',
-    wrapWithHitsAndConfiguration(container =>
+    wrapWithHitsAndConfiguration((container, start) =>
       injectGoogleMaps(() => {
+        container.style.height = '600px';
+
         window.search.addWidget(
           instantsearch.widgets.geoSearch({
             googleInstance: window.google,
@@ -55,13 +58,17 @@ export default () => {
             paddingBoundingBox,
           })
         );
+
+        start();
       })
     )
   )
     .add(
       'with IP & radius',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
@@ -72,13 +79,17 @@ export default () => {
               radius,
             })
           );
+
+          start();
         })
       )
     )
     .add(
       'with IP & radius & precision',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
@@ -90,6 +101,8 @@ export default () => {
               precision,
             })
           );
+
+          start();
         })
       )
     );
@@ -97,8 +110,10 @@ export default () => {
   // With position
   Stories.add(
     'with position',
-    wrapWithHitsAndConfiguration(container =>
+    wrapWithHitsAndConfiguration((container, start) =>
       injectGoogleMaps(() => {
+        container.style.height = '600px';
+
         window.search.addWidget(
           instantsearch.widgets.geoSearch({
             googleInstance: window.google,
@@ -108,13 +123,17 @@ export default () => {
             position,
           })
         );
+
+        start();
       })
     )
   )
     .add(
       'with position & radius',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
@@ -125,13 +144,17 @@ export default () => {
               position,
             })
           );
+
+          start();
         })
       )
     )
     .add(
       'with position & radius & precision',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
@@ -143,6 +166,8 @@ export default () => {
               position,
             })
           );
+
+          start();
         })
       )
     );
@@ -150,10 +175,12 @@ export default () => {
   // With Places
   Stories.add(
     'with position from Places',
-    wrapWithHitsAndConfiguration(container =>
+    wrapWithHitsAndConfiguration((container, start) =>
       injectGoogleMaps(() => {
         const placesElemeent = document.createElement('input');
         const mapElement = document.createElement('div');
+        mapElement.style.height = '500px';
+        mapElement.style.marginTop = '20px';
 
         container.appendChild(placesElemeent);
         container.appendChild(mapElement);
@@ -171,10 +198,13 @@ export default () => {
             container: mapElement,
             radius: 20000,
             enableGeolocationWithIP: false,
+            enableClearMapRefinement: false,
             initialZoom,
             paddingBoundingBox,
           })
         );
+
+        start();
       })
     )
   );
@@ -182,8 +212,10 @@ export default () => {
   // Only UI
   Stories.add(
     'with control & refine on map move',
-    wrapWithHitsAndConfiguration(container =>
+    wrapWithHitsAndConfiguration((container, start) =>
       injectGoogleMaps(() => {
+        container.style.height = '600px';
+
         window.search.addWidget(
           instantsearch.widgets.geoSearch({
             googleInstance: window.google,
@@ -195,60 +227,121 @@ export default () => {
             enableRefineOnMapMove: true,
           })
         );
+
+        start();
       })
     )
   )
     .add(
       'with control & disable refine on map move',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
+              enableRefineControl: true,
+              enableRefineOnMapMove: false,
               container,
               initialPosition,
               initialZoom,
               paddingBoundingBox,
-              enableRefineControl: true,
-              enableRefineOnMapMove: false,
             })
           );
+
+          start();
         })
       )
     )
     .add(
       'without control & refine on map move',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
+              enableRefineControl: false,
+              enableRefineOnMapMove: true,
               container,
               initialPosition,
               initialZoom,
               paddingBoundingBox,
-              enableRefineControl: false,
-              enableRefineOnMapMove: true,
             })
           );
+
+          start();
         })
       )
     )
     .add(
       'without control & disable refine on map move',
-      wrapWithHitsAndConfiguration(container =>
+      wrapWithHitsAndConfiguration((container, start) =>
         injectGoogleMaps(() => {
+          container.style.height = '600px';
+
           window.search.addWidget(
             instantsearch.widgets.geoSearch({
               googleInstance: window.google,
+              enableRefineControl: false,
+              enableRefineOnMapMove: false,
               container,
               initialPosition,
               initialZoom,
               paddingBoundingBox,
-              enableRefineControl: false,
-              enableRefineOnMapMove: false,
             })
           );
+
+          start();
+        })
+      )
+    )
+    .add(
+      'with custom map options',
+      wrapWithHitsAndConfiguration((container, start) =>
+        injectGoogleMaps(() => {
+          container.style.height = '600px';
+
+          window.search.addWidget(
+            instantsearch.widgets.geoSearch({
+              googleInstance: window.google,
+              mapOptions: {
+                streetViewControl: true,
+              },
+              container,
+              initialPosition,
+              initialZoom,
+              paddingBoundingBox,
+            })
+          );
+
+          start();
+        })
+      )
+    )
+    .add(
+      'with custom marker options',
+      wrapWithHitsAndConfiguration((container, start) =>
+        injectGoogleMaps(() => {
+          container.style.height = '600px';
+
+          window.search.addWidget(
+            instantsearch.widgets.geoSearch({
+              googleInstance: window.google,
+              createMarkerOptions: item => ({
+                title: item.name,
+                label: item.price_formatted,
+              }),
+              container,
+              initialPosition,
+              initialZoom,
+              paddingBoundingBox,
+            })
+          );
+
+          start();
         })
       )
     );

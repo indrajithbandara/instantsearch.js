@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeoSearchRenderer - init expect to create the DOM 1`] = `"<div class=\\"root\\"><div class=\\"map\\"></div><div class=\\"controls\\"></div></div>"`;
+
+exports[`GeoSearchRenderer - render expect to render <Control /> 1`] = `
+Array [
+  <Control
+    clearMapRefinement={[Function]}
+    cssClasses={
+      Object {
+        "controls": "controls",
+        "map": "map",
+        "root": "root",
+      }
+    }
+    enableClearMapRefinement={true}
+    enableRefineControl={true}
+    hasMapMoveSinceLastRefine={false}
+    isRefineOnMapMove={true}
+    isRefinedWithMap={false}
+    refineWithMap={[Function]}
+    templateProps={
+      Object {
+        "templates": Object {},
+        "templatesConfig": Object {},
+        "transformData": undefined,
+        "useCustomCompileOptions": Object {},
+      }
+    }
+    toggleRefineOnMapMove={[Function]}
+  />,
+  <div
+    class="controls"
+  />,
+]
+`;
